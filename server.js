@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 PORT = 1000
 
-words = [
+const words = [
     {
         id: 1,
         word: 'Cinnamon',
