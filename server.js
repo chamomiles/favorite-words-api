@@ -32,6 +32,34 @@ app.get('/', (req, res) => {
     `)
 })
 
+
 app.get('/api/words', (req, res) => {
     res.json(words)
+})
+
+function generateId() {
+    const maxId = words.length > 0
+        ? words.reduce((max, word) => max.id > word.id ? max.id : word.id)
+        : 0
+
+    return maxId + 1
+}
+
+app.post('/api/words', (req, res) => {
+    const body = req.body
+
+    const word = body.word
+    const definition = body.definition
+
+    if (words.includes(word)) {
+        return res.status(400).end()
+    } else {
+        words.push({
+            id: generateId(),
+            word: word,
+            definition: definition
+        })
+
+        res.status(204).end()
+    }
 })

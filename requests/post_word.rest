@@ -1,0 +1,7 @@
+POST http://localhost:1000/api/words
+Content-Type: application/json
+
+{
+  "word": "Chamomile",
+  "definition": "An aromatic European plant of the daisy family, with white and yellow flowers."
+}
