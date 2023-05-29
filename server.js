@@ -31,3 +31,7 @@ app.get('/', (req, res) => {
     <p style="font-family: Arial">This server is for API use only. Please use the '<b>/api/words</b>' route.</p>
     `)
 })
+
+app.get('/api/words', (req, res) => {
+    res.json(words)
+})
