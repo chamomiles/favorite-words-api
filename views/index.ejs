@@ -11,26 +11,46 @@
 
     <h2>My Favorite Words!</h2>
 
-    <ul>
+    <ul class="words">
       <% for (const word of words) { %>
-        <li>
-          <h6><%= word.word %></h6>
+        <li class="word">
+          <h4><%= word.word %></h4>
           <p><%= word.definition %></p>
         </li>
       <% } %>
     </ul>
 
-    <form action="/api/words" method="POST">
-      <h3>Add word</h3>
-      <label> Word:
-        <input type="text" name="word">
-      </label>
-      <label> Definition:
-        <input type="text" name="definition">
-      </label>
-      <input type="submit">
+    <section class="forms">
+      <form action="/api/words" method="POST">
+        <h3>Add word</h3>
+        <label> Word:
+          <input type="text" name="word">
+        </label>
+        <label> Definition:
+          <input type="text" name="definition">
+        </label>
+        <input type="submit">
+      </form>
+      
+      <form action="/api/words" method="PUT">
+        <h3>Change word</h3>
+        <label> Old word:
+          <input type="text" name="oldWord">
+        </label>
+        
+        <label> New word:
+          <input type="text" name="newWord">
+        </label>
+        
+        <label> Definition:
+          <input type="text" name="definition">
+        </label>
+        
+        <input type="submit">
     </form>
 
+  </section>
+    
     <script src="js/main.js"></script>
   </body>
-</html>
+  </html>
