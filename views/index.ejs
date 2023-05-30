@@ -32,7 +32,7 @@
         <input type="submit">
       </form>
       
-      <form action="/api/words" method="PUT">
+      <form class="unavailable" action="/api/words" method="PUT">
         <h3>Change word</h3>
         <label> Old word:
           <input type="text" name="oldWord">
@@ -48,6 +48,15 @@
         
         <input type="submit">
     </form>
+
+    <form class="unavailable" action="/api/words" method="DELETE">
+      <h3>Delete word</h3>
+      <label> Word:
+        <input type="text" name="word">
+      </label>
+      
+      <input type="submit">
+  </form>
 
   </section>
     

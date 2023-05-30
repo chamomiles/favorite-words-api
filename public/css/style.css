@@ -49,6 +49,7 @@ input[type="submit"] {
 
 form {
   padding: 30px;
+  width: 30%;
   margin: 10px 0;
   border: 2px solid black;
   border-radius: 5px;
@@ -73,4 +74,17 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+input {
+  border: 2px solid black;
+  padding: 3px 0;
+  border-radius: 3px;
+}
+
+.unavailable,
+.unavailable *,
+.unavailable * * {
+  color: rgb(204, 204, 204) !important;
+  border-color: rgb(204, 204, 204) !important;
 }

@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const querystring = require('querystring')
 const ejs = require('ejs')
 const { urlencoded } = require('body-parser')
 
@@ -76,6 +77,51 @@ app.post('/api/words', (req, res) => {
     }
 })
 
+app.put('/api/words', (req, res) => {
+    const body = req.body
+
+    const oldWord = body.oldWord
+    const oldWordObj = favoriteWords.find(favoriteWordObj => favoriteWordObj.word.toLowerCase() === oldWord)
+
+    if (!oldWordObj) {
+        return res.status(400).json({
+            error: 'word to be changed does not exist in collection'
+        })
+    }
+
+    const {id} = oldWordObj
+
+    const newWord = body.newWord
+    const newDefinition = body.definition
+
+    if (!newWord) {
+        return res.status(400).json({
+            error: 'no new word provided'
+        })
+    }
+
+    if (!newDefinition) {
+        return res.status(400).json({
+            error: 'no new definition provided'
+        })
+    }
+
+    if (oldWord === newWord) {
+        return res.status(400).json({
+            error: 'cannot change word to itself'
+        })
+    }
+
+    const index = favoriteWords.indexOf(oldWordObj)
+    favoriteWords[index] = {
+        id: id,
+        word: newWord,
+        definition: newDefinition
+    }
+
+    res.status(204).end()
+})
+
 app.put('/api/words/:word', (req, res) => {
     const oldWord = req.params.word
     const oldWordObj = favoriteWords.find(favoriteWordObj => favoriteWordObj.word.toLowerCase() === oldWord)
@@ -119,6 +165,24 @@ app.put('/api/words/:word', (req, res) => {
 
     res.status(204).end()
 })
+
+app.delete('/api/words', (req, res) => {
+    const query = querystring.parse(path)
+    const word = req.params.word
+    console.log(word)
+
+    const wordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === word)
+
+    if (!wordObj) {
+        return res.status(400).json({
+            error: 'word to be deleted does not exist in collection'
+        })
+    }
+
+    favoriteWords = favoriteWords.filter(favoriteWordObj => favoriteWordObj !== wordObj)
+
+    res.status(204).end()
+})  
 
 app.delete('/api/words/:word', (req, res) => {
     const word = req.params.word
