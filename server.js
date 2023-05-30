@@ -74,9 +74,6 @@ app.post('/api/words', (req, res) => {
 
         res.status(204).end()
     }
-
-    console.log(`added ${word} to favoriteWords:`)
-    console.log(favoriteWords)
 })
 
 app.put('/api/words/:word', (req, res) => {
@@ -119,8 +116,6 @@ app.put('/api/words/:word', (req, res) => {
         word: newWord,
         definition: newDefinition
     }
-
-    console.log(favoriteWords)
 
     res.status(204).end()
 })
