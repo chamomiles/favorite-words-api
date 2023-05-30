@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 PORT = 1000
 
-const favoriteWords = [
+let favoriteWords = [
     {
         id: 1,
         word: 'Cinnamon',
@@ -72,10 +72,10 @@ app.post('/api/words', (req, res) => {
 
 app.put('/api/words/:word', (req, res) => {
     const oldWord = req.params.word
-    const oldWordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === oldWord)
+    const oldWordObj = favoriteWords.find(favoriteWordObj => favoriteWordObj.word.toLowerCase() === oldWord)
 
     if (!oldWordObj) {
-        res.status(400).json({
+        return res.status(400).json({
             error: 'word to be changed does not exist in collection'
         })
     }
@@ -115,3 +115,19 @@ app.put('/api/words/:word', (req, res) => {
 
     res.status(204).end()
 })
+
+app.delete('/api/words/:word', (req, res) => {
+    const word = req.params.word
+
+    const wordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === word)
+
+    if (!wordObj) {
+        return res.status(400).json({
+            error: 'word to be deleted does not exist in collection'
+        })
+    }
+
+    favoriteWords = favoriteWords.filter(favoriteWordObj => favoriteWordObj !== wordObj)
+
+    res.status(204).end()
+})  
