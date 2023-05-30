@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 150%;
+}
+
+body {
+  font-family: Arial;
+}
+
+h6 {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: none;
+}

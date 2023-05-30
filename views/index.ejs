@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>My Favorite Words</title>
+  </head>
+  <body>
+
+    <h2>My Favorite Words!</h2>
+
+    <ul>
+      <% for (const word of words) { %>
+        <li>
+          <h6><%= word.word %></h6>
+          <p><%= word.definition %></p>
+        </li>
+      <% } %>
+    </ul>
+
+    <form action="/api/words" method="POST">
+      <h3>Add word</h3>
+      <label> Word:
+        <input type="text" name="word">
+      </label>
+      <label> Definition:
+        <input type="text" name="definition">
+      </label>
+      <input type="submit">
+    </form>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

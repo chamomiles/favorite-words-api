@@ -1,6 +1,18 @@
 const express = require('express')
+const path = require('path')
+const ejs = require('ejs')
+const { urlencoded } = require('body-parser')
+
 const app = express()
 PORT = 1000
+
+app.use(express.json())
+app.use(urlencoded({extended: true}))
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+
+app.listen(PORT)
+console.log(`Server is running on port ${PORT}`)
 
 let favoriteWords = [
     {
@@ -11,7 +23,7 @@ let favoriteWords = [
     {
         id: 2,
         word: 'Sapphire',
-        definition: 'A transparent precious stone, typically blue, that is a variety of corundum (aluminum oxide).'
+        definition: 'A transparent precious stone, typically blue, that is a variety of corundum (aluminium oxide).'
     },
     {
         id: 3,
@@ -20,16 +32,10 @@ let favoriteWords = [
     }
 ]
 
-app.use(express.json())
-
-app.listen(PORT)
-console.log(`Server is running on port ${PORT}`)
-
 app.get('/', (req, res) => {
-    res.send(`
-    <h1 style="font-family: Arial">My favorite words!</h1>
-    <p style="font-family: Arial">This server is for API use only. Please use the '<b>/api/words</b>' route.</p>
-    `)
+    res.render('index.ejs', {
+        words: favoriteWords
+    })
 })
 
 
@@ -53,7 +59,7 @@ app.get('/api/words/:word', (req, res) => {
 
 app.post('/api/words', (req, res) => {
     const body = req.body
-
+    
     const word = body.word
     const definition = body.definition
 
@@ -68,6 +74,9 @@ app.post('/api/words', (req, res) => {
 
         res.status(204).end()
     }
+
+    console.log(`added ${word} to favoriteWords:`)
+    console.log(favoriteWords)
 })
 
 app.put('/api/words/:word', (req, res) => {
