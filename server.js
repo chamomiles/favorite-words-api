@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 PORT = 1000
 
-const words = [
+const favoriteWords = [
     {
         id: 1,
         word: 'Cinnamon',
@@ -34,16 +34,24 @@ app.get('/', (req, res) => {
 
 
 app.get('/api/words', (req, res) => {
-    res.json(words)
+    res.json(favoriteWords)
 })
 
 function generateId() {
-    const maxId = words.length > 0
-        ? words.reduce((max, word) => max.id > word.id ? max.id : word.id)
+    const maxId = favoriteWords.length > 0
+        ? favoriteWords.reduce((max, word) => max.id > word.id ? max.id : word.id)
         : 0
 
     return maxId + 1
 }
+
+app.get('/api/words/:word', (req, res) => {
+    const word = req.params.word
+    const wordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === word)
+    console.log(word)
+    console.log(wordObj)
+    res.json(wordObj)
+})
 
 app.post('/api/words', (req, res) => {
     const body = req.body
@@ -51,10 +59,10 @@ app.post('/api/words', (req, res) => {
     const word = body.word
     const definition = body.definition
 
-    if (words.includes(word)) {
+    if (favoriteWords.includes(word)) {
         return res.status(400).end()
     } else {
-        words.push({
+        favoriteWords.push({
             id: generateId(),
             word: word,
             definition: definition
