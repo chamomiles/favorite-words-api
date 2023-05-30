@@ -48,8 +48,6 @@ function generateId() {
 app.get('/api/words/:word', (req, res) => {
     const word = req.params.word
     const wordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === word)
-    console.log(word)
-    console.log(wordObj)
     res.json(wordObj)
 })
 
