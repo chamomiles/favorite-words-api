@@ -69,3 +69,49 @@ app.post('/api/words', (req, res) => {
         res.status(204).end()
     }
 })
+
+app.put('/api/words/:word', (req, res) => {
+    const oldWord = req.params.word
+    const oldWordObj = favoriteWords.find(favoriteWord => favoriteWord.word.toLowerCase() === oldWord)
+
+    if (!oldWordObj) {
+        res.status(400).json({
+            error: 'word to be changed does not exist in collection'
+        })
+    }
+
+    const {id} = oldWordObj
+
+    const body = req.body
+    const newWord = body.word
+    const newDefinition = body.definition
+
+    if (!newWord) {
+        return res.status(400).json({
+            error: 'no new word provided'
+        })
+    }
+
+    if (!newDefinition) {
+        return res.status(400).json({
+            error: 'no new definition provided'
+        })
+    }
+
+    if (oldWord === newWord) {
+        return res.status(400).json({
+            error: 'cannot change word to itself'
+        })
+    }
+
+    const index = favoriteWords.indexOf(oldWordObj)
+    favoriteWords[index] = {
+        id: id,
+        word: newWord,
+        definition: newDefinition
+    }
+
+    console.log(favoriteWords)
+
+    res.status(204).end()
+})

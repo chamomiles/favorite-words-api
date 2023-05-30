@@ -1,0 +1,7 @@
+PUT http://localhost:1000/api/words/cinnamon
+Content-Type: application/json
+
+{
+  "word": "Cardamon",
+  "definition": "The aromatic seeds of a plant of the ginger family, used as a spice and also medicinally."
+}
