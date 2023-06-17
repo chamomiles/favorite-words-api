@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <title>My Favorite Words</title>
   </head>
   <body>
@@ -14,8 +15,7 @@
     <ul class="words">
       <% for (const word of words) { %>
         <li class="word">
-          <h4><%= word.word %></h4>
-          <p><%= word.definition %></p>
+          <h4><%= word %></h4>
         </li>
       <% } %>
     </ul>
